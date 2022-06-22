@@ -10,30 +10,26 @@ full_path = os.path.join(BASE_PATH, LOG_CATALOG_NAME, LOG_FILE_NAME)
 
 def cook_book_dict(file=full_path):
     cook_book = {}
+    
     with open(full_path) as data:
         for line in data:
             dish = line.strip()
             nums = data.readline()
             ingr_list = []
+            fin_list = []
             for item in range(int(nums)):
                 ingr = data.readline()
-                ingr_list.append(ingr.strip())
-                
-            cook_book[dish] = ingr_list
-            data.readline()
+                new_ingr = ingr.split('|')
+                sub_dict = {}
+                sub_dict['ingridient_name'] = new_ingr[0]
+                sub_dict['quantity'] = new_ingr[1]
+                sub_dict['measure'] = new_ingr[2].strip()
+
+              
+                fin_list.append(sub_dict)
+                cook_book[dish] = fin_list
+                data.readline()
         return cook_book
-        #return cook_book
-    #for dish, ingr in cook_book.items():
-     #   a = ' '.join(ingr)
-        
-        
-      #  print(dish, a.replace("|", ''))
-
-    #pprint(cook_book)
-
+    
 
 pprint(cook_book_dict())
-
-##def fin_dict(file=full_path):
-    #ith open(full_path) as menu:
-        
